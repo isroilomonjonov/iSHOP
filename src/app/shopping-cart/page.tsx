@@ -1,5 +1,4 @@
 "use client";
-
 import CustomImage from "@/components/image";
 import { ProductType } from "@/interfaces";
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
@@ -9,9 +8,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 const ShoppingCart = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [products, setProducts] = useState<ProductType[]>(
-    JSON.parse(localStorage.getItem("carts") as string) || []
-  );
+  const [products, setProducts] = useState<ProductType[]>([]);
+  useEffect(()=>{
+    setProducts( JSON.parse(localStorage.getItem("carts") as string) || [])
+  },[])
   const removeProduct = (id: number) => {
     const updateCart = products.filter((product) => product.id !== id);
     setProducts(updateCart);
